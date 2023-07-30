@@ -1,0 +1,43 @@
+.postWrapper {
+    /* text-align: center; */
+    /* display: flex; */
+    /* justify-content: center; */
+    max-width: 100%;
+}
+
+.postContainer {
+    width: 700px;
+    padding: 20px 100px 100px 100px;
+    margin: 30px auto 0;
+    background-color: rgb(233, 233, 233);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.Container {
+    padding: 20px 10px;
+}
+
+#urlValure {
+    width: 200px;
+    line-height: 20px;
+}
+
+.Container input, textarea {
+    border: 1px solid #c8c8c8ee;
+    border-radius: 5px;
+}
+
+button, input, textarea {
+    cursor: pointer;
+    padding: 5px 5px;
+}
+
+.tagContainer button {
+    /* border: solid 1px #c8c8c8ee; */
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: #ffffffee;
+    background-color: rgb(96, 188, 230);
+}

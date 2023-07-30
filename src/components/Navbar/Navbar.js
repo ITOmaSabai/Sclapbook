@@ -4,11 +4,13 @@ import { signInWithPopup } from "firebase/auth";
 
 export const Navbar = () => {
     return (
-        <nav className="navContainer" href="#">
-            <a className="navHeaderLogo">
-                <p>Sclapbook</p>
-                <img url=""/>
-            </a>
+        <nav className="navContainer">
+            <div className="navHeaderLogo">
+                <a href="#">
+                    <p>Sclapbook</p>
+                    {/* <img url=""/> */}
+                </a>
+            </div>
             <div className="navTagContainer">
                 <a className="navTag" href="#">
                     <p>すべての記事</p>
