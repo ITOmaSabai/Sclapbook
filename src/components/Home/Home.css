@@ -1,22 +1,38 @@
+.topWrapper {
+    background-color: #ecf7ff;
+    padding: 70px 0 0;
+}
+
 .topContainer {
     display: flex;
+    /* overflow: hidden; */
     justify-content: center;
-    background-color: #f5f5f5;
+    padding: 20px 0;
+    width: 700px;
 }
 
 .topContainer img {
     width: 500px;
+    position: relative;
 }
 
 .topLogo {
     color: rgb(29, 138, 234);
-    align-items: center;
-    height: 100%;
+    /* align-items: center; */
+    /* height: 100%; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
 }
 
+/* card部分のcss */
 .cardWrapper {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     justify-content: center;
+    padding: 0 30px;
 }
 
 .cardContainer {
@@ -27,6 +43,8 @@
     height: 300px;
     margin: 40px 30px;
     /* margin: 0 100px; */
+    color: #1b1b1b;
+    text-decoration: none;
 }
 
 .card {

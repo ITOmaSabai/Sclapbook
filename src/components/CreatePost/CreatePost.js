@@ -23,6 +23,8 @@ export const CreatePost = () => {
     // console.log(memo);
     createPost();
     window.alert("スクラップしました！")
+    setURL("");
+    setMemo("");
   };
 
   const createPost = async () => {
@@ -55,34 +57,34 @@ export const CreatePost = () => {
   // );
 
   <div className="postWrapper">
-  <div className="postContainer">
-    <div className="Container">
-      <p>URL</p>
-      <input
-        id="urlValue"
-        type="text"
-        placeholder="URLを貼り付け"
-        onChange={(e) => setURL(e.target.value)}
-      >
-      </input>
+    <div className="postContainer">
+      <div className="Container">
+        <p>URL</p>
+        <input
+          id="urlValue"
+          type="text"
+          placeholder="URLを貼り付け"
+          onChange={(e) => setURL(e.target.value)}
+        >
+        </input>
+      </div>
+      <div className="Container tagContainer">
+        <p>タグを選択</p>
+        <button className="react" onClick={(e) => setTag("React")}>React</button>
+      </div>
+      <div className="Container">
+        <textarea
+          id="memoValue"
+          name=""
+          cols="50"
+          rows="8"
+          placeholder="メモを追加"
+          onChange={(e) => setMemo(e.target.value)}
+        >
+        </textarea>
+      </div>
+      <button type="submit" onClick={setPost}>記事を追加する</button>
     </div>
-    <div className="Container tagContainer">
-      <p>タグを選択</p>
-      <button className="react" onClick={(e) => setTag("React")}>React</button>
-    </div>
-    <div className="Container">
-      <textarea
-        id="memoValue"
-        name=""
-        cols="50"
-        rows="8"
-        placeholder="メモを追加"
-        onChange={(e) => setMemo(e.target.value)}
-      >
-      </textarea>
-    </div>
-    <button type="submit" onClick={setPost}>記事を追加する</button>
-  </div>
 </div>
 );
 };

@@ -3,6 +3,7 @@
     /* display: flex; */
     /* justify-content: center; */
     max-width: 100%;
+    padding: 70px 0 0;
 }
 
 .postContainer {
@@ -18,8 +19,8 @@
     padding: 20px 10px;
 }
 
-#urlValure {
-    width: 200px;
+.Cntainer input {
+    width: 500px;
     line-height: 20px;
 }
 
