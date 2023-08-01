@@ -80,7 +80,7 @@ Homeのcss調整
 Loginコンポーネント作成
 ログイン機能の追加
 Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).
-
+ログインpopup起動時エラー：popup.ts:50 Cross-Origin-Opener-Policy policy would block the window.close call.
 
 ##残り機能 7日間で実装
 *Home画面に投稿済み記事表示機能　~8/1
