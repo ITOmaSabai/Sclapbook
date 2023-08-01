@@ -1,6 +1,7 @@
 import React from "react";
 import "./Navbar.css";
-import { signInWithPopup } from "firebase/auth";
+import Login from "../Login/Login";
+
 
 export const Navbar = () => {
     return (
@@ -20,7 +21,7 @@ export const Navbar = () => {
                 </a>
             </div>
             <div className="loginLinks">
-                <button className="login" href="#" onClick={signInWithPopup}>ログイン</button>
+                <button className="login" href="#" onClick={Login}>ログイン</button>
                 <a href="#" className="signIn">新規登録</a>
             </div>
         </nav>

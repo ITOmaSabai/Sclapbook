@@ -41,15 +41,18 @@ const Home = () => {
                         {/* <a href='{post.URL}'> */}
                         <article className="card">
                             <div className='cardHeader'>
-                                <img src='src/components/img/home.jpg'></img>
+                                {/* <img src='src/components/img/home.jpg'></img> */}
                                 <h2 className='cardTitle'>{post.memo}</h2>
                             </div>
-                            <button>#{post.tag}</button>
+                            <button className='tagButton'>#{post.tag}</button>
                         </article>
                         {/* </a> */}
                     </a>
                 )
             })}
+        </div>
+        <div className='footer'>
+            <small>&copy;Ito 2023</small>
         </div>
     </>
   )

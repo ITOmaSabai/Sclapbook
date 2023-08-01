@@ -32,7 +32,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: center;
-    padding: 0 30px;
+    padding: 0 30px 30px;
 }
 
 .cardContainer {
@@ -45,11 +45,42 @@
     /* margin: 0 100px; */
     color: #1b1b1b;
     text-decoration: none;
+    transition: all .25s;
+}
+
+.cardContainer:hover {
+    /* background-color: #fff; */
+    opacity: 70%;
 }
 
 .card {
 }
 
-.cardHeader img {
-    width: 300px;
+.cardHeader {
+    width: 400px;
+    height: 220px;
+    border: 4px solid #2a8de3;
+    border-image: linear-gradient(to right, #5b2ae3 0%, #16c0db 100%);
+    border-image-slice: 1;
+    background-color: #ffffff;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto 20px;
+    /* background-image: url("src/components/img/5949650_3081783.jpg"); */
+}
+
+.tagButton {
+    padding: 10px 20px ;
+    border-radius: 40px ;
+    border: none;
+    background-color: #fff;
+}
+
+/* footer部分のcss */
+.footer {
+    text-align: center;
+    padding: 10px 0 20px 0;
+    border-top: 1px solid rgb(230, 230, 230);
+    /* align-items: center;
+    height: 20px; */
 }

@@ -75,6 +75,13 @@ Home画面の制作（保存した投稿の表示）
 投稿をHomeに表示
 Navbarを固定
 
+8/1
+Homeのcss調整
+Loginコンポーネント作成
+ログイン機能の追加
+Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).
+
+
 ##残り機能 7日間で実装
 *Home画面に投稿済み記事表示機能　~8/1
 *ログイン機能 8/2
@@ -91,3 +98,4 @@ Navbarを固定
 *TypeScript
 *Tailwind CSS
 *MD記法(GitHub投稿のため)
+*GitHubでのバージョン管理
