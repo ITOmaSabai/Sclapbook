@@ -93,6 +93,37 @@ App.jsで定義したuseStateを、App.jsからルーティングしているNav
 8/4
 Navbarの引数としてsetIsAuthを受け取り、onClick内のLoginの引数として渡す。
 
+8/5
+##コンポーネントとpropsの渡し方
+
+###Navbarコンポーネントの引数のpropsオブジェクトに、setIsAuthという値が入ったsetIsAuthプロパティを渡している
+function App() {
+const [isAuth, setIsAuth] = useState(false);
+  return (
+    <>
+      <Navbar setIsAuth={ setIsAuth }/> {/* */}
+    </>
+  );
+}
+
+###Navbarコンポーネントにて引数としてsetIsAuthを受け取り、Loginコンポーネントの引数としてsetIsAuthを渡している(つもり)
+export const Navbar = ({ setIsAuth }) => {
+  return (
+    <div className="loginLinks">
+      <button className="login" href="#" onClick={() => {Login({setIsAuth})}}>ログイン</button>
+      <a href="#" className="signIn">新規登録</a>
+    </div>
+  );
+};
+
+###Loginコンポーネントの引数として受け取ったsetIsAuthを状態変数として格納する
+const Login = async ({ setIsAuth }) => {
+  await signInWithPopup(auth, provider)
+  .then((result) => {
+      setIsAuth(true);
+      localStorage.setItem("isAuth", true);
+  });
+}
 
 ##残り機能 7日間で実装
 *Home画面に投稿済み記事表示機能　~8/1

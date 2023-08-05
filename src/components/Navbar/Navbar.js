@@ -8,7 +8,7 @@ export const Navbar = ({ setIsAuth }) => {
         // const Login = 
         <nav className="navContainer">
             <div className="navHeaderLogo">
-                <a href="#">
+                <a href="/">
                     <p>Sclapbook</p>
                     {/* <img url=""/> */}
                 </a>
