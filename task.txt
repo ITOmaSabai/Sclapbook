@@ -82,6 +82,18 @@ Loginコンポーネント作成
 Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).
 ログインpopup起動時エラー：popup.ts:50 Cross-Origin-Opener-Policy policy would block the window.close call.
 
+8/2
+ログイン時エラー解決できず
+→代わりにログイン機能の実装方法を動画で復習
+
+8/3
+App.jsで定義したuseStateを、App.jsからルーティングしているNavbar.jsでインポートしているLogin.jsで呼び出したい。
+方法がわからない。
+
+8/4
+Navbarの引数としてsetIsAuthを受け取り、onClick内のLoginの引数として渡す。
+
+
 ##残り機能 7日間で実装
 *Home画面に投稿済み記事表示機能　~8/1
 *ログイン機能 8/2

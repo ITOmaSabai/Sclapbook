@@ -3,8 +3,9 @@ import "./Navbar.css";
 import Login from "../Login/Login";
 
 
-export const Navbar = () => {
+export const Navbar = ({ setIsAuth }) => {
     return (
+        // const Login = 
         <nav className="navContainer">
             <div className="navHeaderLogo">
                 <a href="#">
@@ -21,7 +22,7 @@ export const Navbar = () => {
                 </a>
             </div>
             <div className="loginLinks">
-                <button className="login" href="#" onClick={Login}>ログイン</button>
+                <button className="login" href="#" onClick={() => {Login({setIsAuth})}}>ログイン</button>
                 <a href="#" className="signIn">新規登録</a>
             </div>
         </nav>
