@@ -5,26 +5,28 @@
 
 .topContainer {
     display: flex;
-    /* overflow: hidden; */
     justify-content: center;
     padding: 20px 0;
     width: 700px;
+    position: relative;
+    margin: 0 auto;
+    height: 250px;
 }
 
 .topContainer img {
-    width: 500px;
-    position: relative;
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 32%;
+    transform: translate(-50%, -50%);
 }
 
 .topLogo {
     color: rgb(29, 138, 234);
-    /* align-items: center; */
-    /* height: 100%; */
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 67%;
     transform: translate(-50%, -50%);
-    
 }
 
 /* card部分のcss */

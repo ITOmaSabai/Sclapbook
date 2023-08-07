@@ -7,8 +7,6 @@ import { CreatePost } from '../CreatePost/CreatePost';
 import { db } from '../firebase';
 import { collection, getDocs } from "firebase/firestore";
 
-
-
 const Home = () => {
     const [postList, setPostList] = useState([]);  //配列をuseStateに格納する際の引数、setPostListに格納した後に一つずつ取り出す方法(map関数？)
 

@@ -1,6 +1,6 @@
 //記事のURLや情報を入力する画面を実装する
 // import { doc, setDoc } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import "./CreatePost.css";
@@ -8,9 +8,12 @@ import "./CreatePost.css";
 
 export const CreatePost = () => {
   const [URL, setURL] = useState();
-  const [tag, setTag] = useState();
+  const [tag, setTag] = useState([]);
   const [memo, setMemo] = useState();
 
+  // const addTag = setTag([...tag, ]);
+  // useEffect(() => {
+  // })
   
   const setPost = () => {
     //onChangeに変更する前のコード
@@ -19,15 +22,19 @@ export const CreatePost = () => {
     // setURL(postedURL.value);
     // setMemo(postedMemo.value);
 
-    // console.log(URL);
-    // console.log(memo);
-    createPost();
+    // createPost();
+    console.log(tag);
     window.alert("スクラップしました！")
-    setURL("");
-    setMemo("");
+    //投稿後、input他の値を空にする
+    // setURL();
+    // setMemo();
+    // setTag();
+    // console.log(tag);
   };
 
   const createPost = async () => {
+    // const tagData = tag.map((tagData) => tagData.value)
+
     await addDoc(collection(db, "sclapbook"), {
       URL: URL,
       tag: tag,
@@ -70,7 +77,10 @@ export const CreatePost = () => {
       </div>
       <div className="Container tagContainer">
         <p>タグを選択</p>
-        <button className="react" onClick={(e) => setTag("React")}>React</button>
+        <button className="react" onClick={() => setTag("React")}>React</button>
+        {/* <button className="react" onClick={() => addTag("非同期処理")}>非同期処理</button>
+        <button className="react" onClick={() => addTag("ルーティング")}>ルーティング</button>
+        <button className="react" onClick={() => addTag("onClick")}>onClick</button> */}
       </div>
       <div className="Container">
         <textarea
@@ -88,18 +98,3 @@ export const CreatePost = () => {
 </div>
 );
 };
-
-// 以下は投稿を表示するページに実装する
-// <div className="cardContainer">
-//           <div>
-//             <img src="" alt="" className="thumbnail" />
-//           </div>
-//           <div className="card">
-//             <h2>記事タイトル</h2>
-//             <p>プレビュープレビュープレビュー</p>
-//           </div>
-//           <div className="cardInfo">
-//             <p>いいね</p>
-//             <p>タグ</p>
-//           </div>
-//         </div>

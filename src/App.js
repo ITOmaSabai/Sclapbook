@@ -6,12 +6,14 @@ import Home from './components/Home/Home';
 import { useState } from 'react';
 
 function App() {
-const [isAuth, setIsAuth] = useState(false);
-
+  const loginStatus = localStorage.getItem("isAuth");
+  const [isAuth, setIsAuth] = useState(loginStatus);
+// setIsAuth(loginStatus);
+console.log(loginStatus);
   return (
     <>
-      <Navbar setIsAuth={ setIsAuth }/> {/* */}
       <Router>
+        <Navbar isAuth={ isAuth } setIsAuth={ setIsAuth }/>
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/createpost" element={<CreatePost />}></Route>

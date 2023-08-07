@@ -1,30 +1,38 @@
 import React from "react";
 import "./Navbar.css";
 import Login from "../Login/Login";
+import Logout from "../Logout/Logout";
+import { Link, useNavigate } from "react-router-dom";
 
-
-export const Navbar = ({ setIsAuth }) => {
+export const Navbar = ({ isAuth, setIsAuth }) => {
+    const navigate = useNavigate();
     return (
-        // const Login = 
         <nav className="navContainer">
             <div className="navHeaderLogo">
                 <a href="/">
                     <p>Sclapbook</p>
-                    {/* <img url=""/> */}
                 </a>
             </div>
             <div className="navTagContainer">
-                <a className="navTag" href="#">
+                <a className="navTag" href="/">
                     <p>すべての記事</p>
                 </a>
-                <a className="navTag" href="#">
+                <a className="navTag" href="/">
                     <p>タグから探す</p>
                 </a>
             </div>
-            <div className="loginLinks">
-                <button className="login" href="#" onClick={() => {Login({setIsAuth})}}>ログイン</button>
-                <a href="#" className="signIn">新規登録</a>
-            </div>
+            {!isAuth ? (
+                <div className="loginLinks">
+                    <button className="login" onClick={() => {Login({isAuth, setIsAuth})}}>ログイン</button>
+                    <a href="#" className="signIn" onClick={() => {Login({isAuth, setIsAuth})}}>新規登録</a>
+                    {console.log("レンダリングされました")}
+                </div>
+            ) : (
+                <div className="loginLinks">
+                    <button className="login" onClick={() => {navigate("/createpost")}}>記事をスクラップする</button>
+                    <a className="logout navTag" onClick={() => {Logout(isAuth, setIsAuth)}}>ログアウト</a>
+                </div>
+            )}
         </nav>
     );
 };
