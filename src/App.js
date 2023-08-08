@@ -7,15 +7,15 @@ import { useState } from 'react';
 
 function App() {
   const loginStatus = localStorage.getItem("isAuth");
+  console.log(loginStatus);
   const [isAuth, setIsAuth] = useState(loginStatus);
-// setIsAuth(loginStatus);
-console.log(loginStatus);
+  // setIsAuth(loginStatus);
   return (
     <>
       <Router>
         <Navbar isAuth={ isAuth } setIsAuth={ setIsAuth }/>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<Home isAuth={ isAuth } />} ></Route>
           <Route path="/createpost" element={<CreatePost />}></Route>
         </Routes>
       </Router>

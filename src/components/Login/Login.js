@@ -1,6 +1,5 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth, provider } from "../firebase"; //動画より
-import { useState } from "react";
 
 const Login = async ({ isAuth, setIsAuth }) => {
     // const provider = new GoogleAuthProvider();

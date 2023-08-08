@@ -191,9 +191,78 @@ const [isAuth, setIsAuth] = useState(false);
   **Too many re-renders. React limits the number of renders to prevent an infinite loop.**  
 スプレッド構文の使用方法が誤っているようだ。
 
-8/7
+### 8/7
 ログイン状態を各ページに反映させる
+→localStorageに保存したisAuthをfalseに書き換えても、リロードするとNavbarにスクラップボタンが表示されてしまう。
+（=ログイン状態がtrueになっている）
+<!-- 三項演算子の用法が誤っていると推測。 -->
+不明点
+* Logoutで非同期処理が必要か？（ログアウトできていない）  
+→8/8解決。非同期処理は不要。*thenメソッドがあってもasync/awaitは不要*。
+* コンポーネントへの引数の渡し方
 
+### 8/8
+下記の通り変更したところ、ログアウト時のNavbarにはスクラップボタンでなくログインボタンが表示されるようになった。
+```javascript
+localStorage.setItem("isAuth", false);
+```
+↓
+```javascript
+localStorage.clear();
+```
+
+### 課題
+ログインしていない状態にもかかわらず、Homeの記事が表示されるエラー  
+→渡ってきている情報を出力したところ、謎の{}データだった  
+→引数としてHomeで受け取る際に、{}をつけ忘れていたので{isAuth}に修正  
+→今度はisAuthを出力するとundefinedとなり、ログインしても記事が表示されなくなった  
+* 修正前コード
+```javascript
+function App() {
+  const loginStatus = localStorage.getItem("isAuth");
+  console.log(loginStatus);
+  const [isAuth, setIsAuth] = useState(loginStatus);
+  // setIsAuth(loginStatus);
+  return (
+    <>
+      <Router>
+        <Navbar isAuth={ isAuth } setIsAuth={ setIsAuth }/>
+        <Routes>
+          <Route path="/" element={<Home />} isAuth={ isAuth }></Route>
+          <Route path="/createpost" element={<CreatePost />}></Route>
+        </Routes>
+      </Router>
+    </>
+  );
+}
+
+export default App;
+```
+* 修正後コード  
+```javascript
+function App() {
+  const loginStatus = localStorage.getItem("isAuth");
+  console.log(loginStatus);
+  const [isAuth, setIsAuth] = useState(loginStatus);
+  // setIsAuth(loginStatus);
+  return (
+    <>
+      <Router>
+        <Navbar isAuth={ isAuth } setIsAuth={ setIsAuth }/>
+        <Routes>
+          <Route path="/" element={<Home isAuth={ isAuth } />} ></Route>
+          <Route path="/createpost" element={<CreatePost />}></Route>
+        </Routes>
+      </Router>
+    </>
+  );
+}
+
+export default App;
+```
+
+  
+  引数としてpropsを受け取る際に、{}が必要なのか否かで何度も苦しめられた。
 
 ## 日程の再設定 (残り7日間で実装するには)
 * Home画面に投稿済み記事表示機能　~8/1
