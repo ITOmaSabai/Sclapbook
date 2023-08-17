@@ -261,8 +261,185 @@ function App() {
 export default App;
 ```
 
+### 8/9
+ログイン後、ブラウザでログアウトしてからHomeで更新すると、ログイン状態をキープしてしまう
+記事削除機能を実装
+
+編集ボタンをクリック→クリックした記事のURL,tag,memoを取得(getPost(e))
+→編集→保存ボタンをクリックすると上書き保存
+
+set関数3兄弟がEditでインポートできない不具合が発生
+
+### 疑問点
+```javascript
+<button onClick={<Edit />}></button>
+```  
+と  
+```javascript
+<button onClick={() => {Edit()}}></button>
+```  
+の違い  
   
-  引数としてpropsを受け取る際に、{}が必要なのか否かで何度も苦しめられた。
+
+## exportに関するエラー発生　　
+> Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /Users/john/Desktop/dev/react-practice/practice0722/src/components/CreatePost/CreatePost.js: Export 'setURL' is not defined. (72:10)  
+  70 | };  
+  71 |  
+> 72 | export  { setURL }
+
+### export元
+```javascript
+export  { setURL }
+```
+### 調査結果
+
+> 重複した名前でエクスポートを実施したり、 default のエクスポートを複数使用すると SyntaxError が発生し、モジュールが評価されなくなります。
+
+以下の通りimport？していた
+```javascript
+import './App.css';
+import { Navbar } from './components/Navbar/Navbar';
+import { CreatePost } from './components/CreatePost/CreatePost';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
+import Home from './components/Home/Home';
+import Edit from './components/Edit';
+
+function App() {
+  const loginStatus = localStorage.getItem("isAuth");
+  console.log(loginStatus);
+  const [isAuth, setIsAuth] = useState(loginStatus);
+  // setIsAuth(loginStatus);
+  return (
+    <>
+      <Router>
+        <Navbar isAuth={ isAuth } setIsAuth={ setIsAuth }/>
+        <Routes>
+          <Route path="/" element={<Home isAuth={ isAuth } Edit={Edit} />} ></Route>
+          <Route path="/createpost" element={<CreatePost />}></Route>
+          <Route path="/edit" element={<Edit  setURL={setURL} setTag={setTag} setMemo={setMemo} />}></Route>
+        </Routes>
+      </Router>
+    </>
+  );
+}
+
+export default App;
+```  
+と思ったけど関係なかった。エラー解消ならず。
+
+### 8/10
+setURL他を使用するのをやめて、新たに状態変数を保存する関数をEdit内で定義することにする。
+また、記事の編集方法をFirebaseドキュメントで調べる。
+Invalid document reference. Document references must have an even number of segments, but sclapbook has 1.
+
+### 8/11  
+Invalid document reference. Document references must have an even number of segments, but sclapbook has 1.
+エラー継続対応。とりあえず後回し。
+
+### 8/12
+タグ生成機能追加。
+以下コードではエラー発生
+```javascript
+ const createTag = () => {
+    const input = document.querySelector("inputTag")
+    console.log(input.value)
+    // const p = document.createElement("p")
+    // p.innerText = input.value
+  }
+  ```
+
+> Cannot read properties of null (reading 'value')
+TypeError: Cannot read properties of null (reading 'value')
+
+
+*修正後コード*
+```javascript
+  const createTag = () => {
+    const input = document.querySelectorAll("inputTag")
+    console.log(input.value)
+    const p = document.createElement("p")
+    p.innerText = input.value
+    document.body.appendChild(p)
+  }
+  ```
+
+### 8/13
+> TypeError: tagContainerElement.appendChild is not a function
+の修正
+参考URL:https://bobbyhadz.com/blog/javascript-typeerror-appendchild-is-not-a-function
+
+修正前コード
+```javascript
+const createTag = () => {
+    const tagContainerElement = document.getElementsByClassName("listTag")
+    const input = document.querySelectorAll("inputTag")
+    console.log(input.value)
+    const p = document.createElement("p")
+    p.innerText = input.value
+    console.log(p)
+    tagContainerElement.appendChild(p)
+  }
+```
+
+修正後コード
+```javascript
+const createTag = () => {
+    const tagContainerElement = document.getElementsByClassName("listTag")
+    const input = document.querySelectorAll("inputTag")
+    console.log(input.value)
+    const p = document.createElement("p")
+    p.innerText = input.value
+    console.log(p)
+    tagContainerElement[0].appendChild(p)
+  }
+```
+### 学んだことメモ  
+* appendChildはインデックスを指定する
+* querySelectorAllが返すのはNodelist。だから.valueの値がundefinedだった。
+* getElementsByClassNameが取得するのはHTMLCollection。for文で取り出す必要がある。いきなりforEachは使用できないのでスプレッド構文で格納してから。
+
+
+### 8/15
+createTagの修正
+
+getElementsByClassNameで取得できるのはHTMLCollectionであり、配列ではない。  
+配列ではないので、forEachは使えない。
+
+```javascript
+const createdTag = document.getElementsByClassName("inputTag")
+console.log(createdTag) //出力結果はHTMLCollection [input.inputTag]
+for (let i = 0; i < createdTag.length; i++) {
+  console.log(createdTag.item(i).value); //出力結果はinputの値
+}
+```
+
+タグをホームに表示する機能  
+タグは配列だったり1つだったりするので、条件分岐させつつ配列を展開してボタンを生成する機能を実装
+
+
+### 8/16  
+tag, setTagのuseStateの初期値を空の配列にすることで、  
+タグが一つの場合でも要素数1の配列とすることができた。  
+タグが空文字の場合にはタグをstateに保存しない＆生成しない機能を追加。
+* 生成されたタグに、クリックすると削除するボタンを設定したい。
+* タグを生成後にインプットの値を空にする機能を追加したい。→完了
+* 投稿後、createElementしたbuttonを削除したい。  
+→リロードした方が早い？
+* useStateを他のコンポーネントで使用する方法、もしくはexportしたコンポーネントの中で定義した関数をexportする方法
+
+### 8/17
+DeleteTagコンポーネントを用意して、CreateTag内で呼び出し、tag, setTagをpropsとして渡す。 
+```Javascript
+<DeleteTag tag={tag} setTag={setTag} />
+``` 
+(参考:http://www.code-magagine.com/?p=13251#google_vignette)
+→
+
+  
+引数としてpropsを受け取る際に、{}が必要なのか否かで何度も苦しめられた。  
+どのブラウザAPIが何の型のデータを返すのか。HTMLCollection, Nodelist etc....
 
 ## 日程の再設定 (残り7日間で実装するには)
 * Home画面に投稿済み記事表示機能　~8/1
@@ -273,6 +450,10 @@ export default App;
 * タグ生成機能 8/4
 * タグから検索機能 8/5
 * キーワードから検索機能(できれば)
+* 投稿日時ごとに記事を表示機能
+* 空文字での投稿を受け付けない機能(入力エラー検出)
+* 「〇〇(ユーザー名)の記事一覧」とHomeに表示する機能
+* ログインしているユーザーの投稿した記事のみ表示する機能
 
 ## 今後学習したい機能
 * CSSアニメーション
@@ -281,3 +462,12 @@ export default App;
 * Tailwind CSS
 * MD記法(GitHub投稿のため)
 * GitHubでのバージョン管理
+
+## 所管
+* 完成形をイメージしないと、後から後から改善点、不具合が出てくる  
+→結果、開発の順序がとっ散らかる、一貫性がなくなる。  
+また、ゴールまでの道筋を見失ってしまい開発モチベーションが低下する。  
+* 完成させてこそ、自走力を見せることができるのではないか？
+* エラーチェック、デバッグを完了させてこそ、用心深さや技術力をアピールできるのではないか？
+* 技術力は高い方が、採用確率が上がる。しかし完璧な技術力を身につけるのを待っていたら、一生就職できない。  
+→独学を始めた自走力や、3ヶ月でここまで作ったという成長率をアピールするか？

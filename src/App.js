@@ -2,8 +2,9 @@ import './App.css';
 import { Navbar } from './components/Navbar/Navbar';
 import { CreatePost } from './components/CreatePost/CreatePost';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './components/Home/Home';
 import { useState } from 'react';
+import Home from './components/Home/Home';
+import Edit from './components/Edit';
 
 function App() {
   const loginStatus = localStorage.getItem("isAuth");
@@ -15,8 +16,9 @@ function App() {
       <Router>
         <Navbar isAuth={ isAuth } setIsAuth={ setIsAuth }/>
         <Routes>
-          <Route path="/" element={<Home isAuth={ isAuth } />} ></Route>
+          <Route path="/" element={<Home isAuth={ isAuth } Edit={Edit} />} ></Route>
           <Route path="/createpost" element={<CreatePost />}></Route>
+          <Route path="/edit" element={<Edit />}></Route>
         </Routes>
       </Router>
     </>

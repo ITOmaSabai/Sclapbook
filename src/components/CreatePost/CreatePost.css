@@ -34,11 +34,22 @@ button, input, textarea {
     padding: 5px 5px;
 }
 
-.tagContainer button {
+.addTagButton {
     /* border: solid 1px #c8c8c8ee; */
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
     color: #ffffffee;
     background-color: rgb(96, 188, 230);
+    margin: 0 10px;
+}
+
+.tagButton {
+    background-color: #d9d9d9;
+    color: black;
+    margin: 10px;
+    transition: all .25s;
+}
+.tagButton:hover {
+    background-color: #c1c1c1;
 }

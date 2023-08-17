@@ -24,7 +24,7 @@ export const Navbar = ({ isAuth, setIsAuth }) => {
             {!isAuth ? (
                 <div className="loginLinks">
                     <button className="login" onClick={() => {Login({isAuth, setIsAuth})}}>ログイン</button>
-                    <a href="#" className="signIn" onClick={() => {Login({isAuth, setIsAuth})}}>新規登録</a>
+                    <a className="signIn" onClick={() => {Login({isAuth, setIsAuth})}}>新規登録</a>
                     {console.log("レンダリングされました")}
                     {console.log(isAuth)}
                 </div>

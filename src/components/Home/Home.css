@@ -1,5 +1,5 @@
 .topWrapper {
-    background-color: #ecf7ff;
+    background-color: #f3f3f3;
     padding: 70px 0 0;
 }
 
@@ -35,6 +35,21 @@
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     padding: 0 30px 30px;
+    /* height: calc(100vh - 170px); */
+}
+
+.mainWrapper h1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 350px;
+    font-weight: normal;
+    color: #6e6e6e;
+}
+
+.mainWrapper a {
+    display: inline;
 }
 
 .cardContainer {
@@ -83,6 +98,6 @@
     text-align: center;
     padding: 10px 0 20px 0;
     border-top: 1px solid rgb(230, 230, 230);
-    /* align-items: center;
-    height: 20px; */
+    /* position: absolute;
+    bottom: 0; */
 }

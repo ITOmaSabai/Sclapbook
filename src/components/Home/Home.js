@@ -3,9 +3,12 @@ import "./Home.css";
 import homeImg from "../img/home.jpg";
 import { db } from '../firebase';
 import { collection, getDocs } from "firebase/firestore";
+import Edit from "../Edit";
 
-const Home = ({isAuth}) => {
-    const [postList, setPostList] = useState([]);  //配列をuseStateに格納する際の引数、setPostListに格納した後に一つずつ取り出す方法(map関数？)
+const Home = ({isAuth, Edit}) => {
+    //配列をuseStateに格納する際の引数、setPostListに格納した後に一つずつ取り出す方法(map関数？)
+    const [postList, setPostList] = useState([]);
+    // const tag
 
     //ページをリロードした際に１度だけ表示したいので、useEffectを使用する
     useEffect(() => {
@@ -34,20 +37,30 @@ const Home = ({isAuth}) => {
         {isAuth ? (
             <div className="cardWrapper">
             {postList.map((post) => {
+
+                //タグを抜き出して一つずつ表示する機能を追加
+                const eachTag = post.tag
+                console.log(post.tag)
+                // const tag = eachTag.forEach((t) => t)
+
                 return (
-                    <a className='cardContainer' href={post.URL} target='_blank'>
+                    <div className='cardContainer'>
                         <article className="card">
-                            <div className='cardHeader'>
+                            <a className='cardHeader' href={post.URL} target='_blank'>
                                 <h2 className='cardTitle'>{post.memo}</h2>
-                            </div>
-                            <button className='tagButton'>#{post.tag}</button>
+                            </a>
+                            <button className='tagButton'></button>
+                            
+                            <button onClick={(e) => {Edit(e.target.value)}}>編集</button>
                         </article>
-                    </a>
+                    </div>
                 )
             })}
         </div>
         ) : (
-            <h2>ログインして記事を表示</h2>
+            <div className="mainWrapper">
+                <h1>記事を表示するにはログインしてください</h1>
+            </div>
         )}
         
         <div className='footer'>
