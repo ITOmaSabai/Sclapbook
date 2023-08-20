@@ -437,6 +437,14 @@ DeleteTagコンポーネントを用意して、CreateTag内で呼び出し、ta
 (参考:http://www.code-magagine.com/?p=13251#google_vignette)
 →
 
+### 8/18
+useStateを渡すため、CreateTagコンポーネント内でDeleteTagコンポーネントを読んでいるが無限レンダリングが発生しているようだ。  
+CreateTagで生成されたタグに対して、onClickでe.target.innerTextを取得して、filter関数で取り除いた配列を  
+set関数でstatetして保存したい・・・が、追加ボタンを押した瞬間にonClickが発火しており
+空文字が24個取れたり、追加が74個取れたりしている。  
+CreateTagで呼び出しているDeleteTagが常に発火しているため、クリックした場所の要素を取得してしまっている。
+→**onClickに対するe.targetの知識不足＆レンダリングのタイミングを学び直す必要がある**
+
   
 引数としてpropsを受け取る際に、{}が必要なのか否かで何度も苦しめられた。  
 どのブラウザAPIが何の型のデータを返すのか。HTMLCollection, Nodelist etc....

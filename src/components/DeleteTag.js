@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react'
 
-const DeleteTag = ({tag, setTag}) => {
-  useEffect(() => {
+const DeleteTag = ({tag, setTag}, e) => {
+  // useEffect(() => {
 
     const targetTags = document.getElementsByClassName("tagButton")
-    console.log(targetTags)
-    // const targetTag = {...targetTags}
+    const targetTag = [...targetTags]
+    // console.log(targetTag)
+
     // //クリックした際に、クリックしたタグ以外のタグをtagにsetする
-    // document.addEventListener("click", (e) => {
-    //   setTag(targetTag.filter((t) => t.id !== e.target.id))
-    // })
-  })
+    document.addEventListener("click", (e) => {
+      console.log(e.target.innerText)
+      setTag(targetTag.filter((t) => t.innerText !== e.target.innerText))
+      // console.log(tag)
+    })
+  // })
 
   
   // return (
