@@ -27,7 +27,7 @@ body {
 }
 
 .topLogo {
-    color: rgb(29, 138, 234);
+    color: #4FBBF8;
     position: absolute;
     top: 50%;
     left: 67%;
@@ -62,21 +62,21 @@ body {
     background-color: #ffffff;
     width: 450px;
     padding: 20px;
-    /* border: solid 1px #a5a5a562; */
     border-radius: 15px;
     height: 300px;
     margin: 40px 30px;
     /* margin: 0 100px; */
     color: #1b1b1b;
     text-decoration: none;
-    /* transition: all .1s; */
+    transition: all .1s;
 }
 
 .cardContainer:hover {
     /* background-color: #fff; */
     /* opacity: 70%; */
-    outline: solid 10px #d8d8d8;
+    /* outline: solid 10px #d8d8d8; */
     /* outline-style: ; */
+    box-shadow: 0px 0px 16px 1px #cbcbcb;
 }
 
 .card {
@@ -145,7 +145,7 @@ body {
 }
 
 .editPostButton:hover, .deletePostButton:hover {
-    outline: 3px solid hwb(0 65% 35% / 0.60);
+    box-shadow: 0px 0px 10px 0px #cbcbcb;
 }
 
 /* footer部分のcss */

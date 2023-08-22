@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Home.css";
-import homePic from "../img/homePic.jpg";
+import homePic from "../img/5949650_3081783.jpg";
 import { db } from '../firebase';
 import { collection, deleteDoc, getDocs, doc } from "firebase/firestore";
 import Edit from "../Edit";
@@ -49,20 +49,20 @@ const Home = ({isAuth, Edit}) => {
 
                 //タグを抜き出して一つずつ表示する機能を追加
                 const eachTag = post.tag
-                console.log(post.tag)
                 // const tag = eachTag.forEach((t) => t)
 
                 return (
                     <div className='cardContainer' key={post.id}>
-                    {/* key設定したら死ぬほど重くなった */}
-                    {/* <div className='cardContainer'> */}
                         <article className="card">
                             <a className='cardHeader' href={post.URL} target='_blank'>
-                                <h2 className='cardTitle'>memo:  <span>{post.memo}</span></h2>
+                                <h2 className='cardTitle'>
+                                    memo:
+                                    <span>{post.memo}</span>
+                                </h2>
                             </a>
                             <button className='tagButton'></button>
                             <div className='editDeleteContainer'>
-                                <button className='editPostButton' >編集</button>
+                                <button className='editPostButton'>編集</button>
                                 {/* <button className='editPostButton' onClick={() => {Edit()}}>編集</button> */}
                                 <button className='deletePostButton' onClick={() => deletePost(post.id)} >削除</button>
                             </div>

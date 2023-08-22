@@ -1,16 +1,16 @@
 //記事のURLや情報を入力する画面を実装する
 // import { doc, setDoc } from "firebase/firestore";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { auth, db } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 import "./CreatePost.css";
 import CreateTag from "../CreateTag";
 import DeleteTag from "../DeleteTag";
 import { MyContext } from "../../App";
 
 export const CreatePost = () => {
-  const [URL, setURL] = useState();
-  const [memo, setMemo] = useState();
+  const [URL, setURL] = useState("");
+  const [memo, setMemo] = useState("");
   //useContextを用いてstateを管理
   const [tag, setTag] = useContext(MyContext);
   
@@ -19,17 +19,19 @@ export const CreatePost = () => {
     createPost();
     console.log(tag);
     window.alert("スクラップしました！")
-    //投稿後、useStateを空にする。
-    // setURL();
-    // setMemo();
-    // setTag();
-    // console.log(tag);
-
+    
     //投稿後、input他の値を空にする
-    const $inputUrl = document.getElementById("inputUrl")
-    $inputUrl.value = ""
-    const $inputMemo = document.getElementById("inputMemo")
-    $inputMemo.value = ""
+    const $inputUrl = document.getElementById("inputUrl");
+    $inputUrl.value = "";
+    const $inputTag = document.getElementById("inputTag");
+    $inputTag.value = "";
+    const $inputMemo = document.getElementById("inputMemo");
+    $inputMemo.value = "";
+    //投稿後、useStateを空にする。
+    setURL("");
+    setMemo("");
+    setTag([]);
+
   };
 
   //投稿をFirebaseに保存する機能
@@ -38,6 +40,7 @@ export const CreatePost = () => {
       URL: URL,
       tag: tag,
       memo: memo,
+      date: Timestamp.fromDate(new Date()),
       author: {
         username: auth.currentUser.displayName,
         id: auth.currentUser.uid

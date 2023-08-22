@@ -10,7 +10,7 @@ export const Navbar = ({ isAuth, setIsAuth }) => {
         <nav className="navContainer">
             <div className="navHeaderLogo">
                 <a href="/">
-                    <p>Sclapbook</p>
+                    <h1>Sclapbook</h1>
                 </a>
             </div>
             <div className="navTagContainer">

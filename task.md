@@ -281,18 +281,18 @@ set関数3兄弟がEditでインポートできない不具合が発生
 の違い  
   
 
-## exportに関するエラー発生　　
+#### exportに関するエラー発生　　
 > Module build failed (from ./node_modules/babel-loader/lib/index.js):
 SyntaxError: /Users/john/Desktop/dev/react-practice/practice0722/src/components/CreatePost/CreatePost.js: Export 'setURL' is not defined. (72:10)  
   70 | };  
   71 |  
 > 72 | export  { setURL }
 
-### export元
+##### export元
 ```javascript
 export  { setURL }
 ```
-### 調査結果
+##### 調査結果
 
 > 重複した名前でエクスポートを実施したり、 default のエクスポートを複数使用すると SyntaxError が発生し、モジュールが評価されなくなります。
 
@@ -469,6 +469,7 @@ FirebaseError: Invalid document reference. Document references must have an even
 ```  
 * postにid追加  
 * 投稿時にuserNameとuserIdを保存するよう修正
+* Timestampを取得
 
 
   
