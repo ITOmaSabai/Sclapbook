@@ -1,17 +1,20 @@
 //記事のURLや情報を入力する画面を実装する
 // import { doc, setDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { db } from "../firebase";
+import { useEffect, useState, useContext } from "react";
+import { auth, db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import "./CreatePost.css";
 import CreateTag from "../CreateTag";
 import DeleteTag from "../DeleteTag";
+import { MyContext } from "../../App";
 
 export const CreatePost = () => {
   const [URL, setURL] = useState();
-  const [tag, setTag] = useState([]);
   const [memo, setMemo] = useState();
+  //useContextを用いてstateを管理
+  const [tag, setTag] = useContext(MyContext);
   
+  //投稿ボタンを押した際の動作
   const setPost = () => {
     createPost();
     console.log(tag);
@@ -29,15 +32,20 @@ export const CreatePost = () => {
     $inputMemo.value = ""
   };
 
+  //投稿をFirebaseに保存する機能
   const createPost = async () => {
     await addDoc(collection(db, "sclapbook"), {
       URL: URL,
       tag: tag,
-      memo: memo
+      memo: memo,
+      author: {
+        username: auth.currentUser.displayName,
+        id: auth.currentUser.uid
+      }
     });
   };
 
-  //クリックしたタグをuseStateから削除する機能を追加
+  //クリックしたタグをuseStateから削除する機能
   const deleteTag = ({tag, setTag}) => {
     const targetTag = document.getElementsByClassName("tagButton")
     document.addEventListener("click", (e) => {
@@ -65,25 +73,21 @@ export const CreatePost = () => {
           <input id="inputTag" className="inputTag" placeholder="タグを入力"></input>
           <button
             className="addTagButton"
+            placeholder="タグを入力"
+            // autoCompleteをoffにする機能を実装予定
             onClick={() => {
-              //DeleteTagコンポーネントを作成して、propsを渡す
+              //DeleteTagコンポーネントを作成して、propsを渡す機能を実装予定
               const inputedTag = CreateTag();
               setTag([...tag, inputedTag]) //https://qiita.com/itachi/items/4184b2afc35b55b45568
             }}
           >
             追加
           </button>
-          <DeleteTag tag={tag} setTag={setTag} />
+          {/* <DeleteTag tag={tag} setTag={setTag} /> */}
           
           <div id="listTag">
-            <button className="react">React</button>
-            {/* <button className="react" onClick={() => addTag("非同期処理")}>非同期処理</button>
-            <button className="react" onClick={() => addTag("ルーティング")}>ルーティング</button>
-            <button className="react" onClick={() => addTag("onClick")}>onClick</button> */}
+            {/* <button className="react">React</button> */}
           </div>
-          <ul>
-
-          </ul>
         </div>
 
         <div className="Container">

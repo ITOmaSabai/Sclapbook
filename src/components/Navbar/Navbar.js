@@ -17,7 +17,7 @@ export const Navbar = ({ isAuth, setIsAuth }) => {
                 <a className="navTag" href="/">
                     <p>すべての記事</p>
                 </a>
-                <a className="navTag" href="/">
+                <a className="navTag" href="/searchbytag">
                     <p>タグから探す</p>
                 </a>
             </div>
@@ -30,7 +30,7 @@ export const Navbar = ({ isAuth, setIsAuth }) => {
                 </div>
             ) : (
                 <div className="loginLinks">
-                    <button className="login" onClick={() => {navigate("/createpost")}}>記事をスクラップする</button>
+                    <button className="login" onClick={() => {navigate("/createpost")}}>記事を投稿</button>
                     <a className="logout navTag" onClick={() => {Logout({setIsAuth})}}>ログアウト</a>
                     {console.log(isAuth)}
                 </div>

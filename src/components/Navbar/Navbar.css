@@ -1,7 +1,7 @@
 .navContainer {
     display: flex;
     justify-content: space-between;
-    text-align: center;
+    /* text-align: center; */
     height: 70px;
     border-bottom: solid 1px #cccccc;
     position: fixed;
@@ -10,29 +10,40 @@
     background-color: #fff;
 }
 
-.navTagContainer {
-    display: flex;
-}
-
 .navHeaderLogo {
+    /* display: flex; */
     padding: 5px 10px;
-    text-align: center;
-    align-items: center;
-    height: 100%;
+    /* text-align: center; */
+    /* align-items: center; */
+    height: 70px;
+    width: 250px;
 }
 
 .navHeaderLogo p {
     font-weight: bold;
     font-size: 25px;
     margin: 0;
-    align-items: center;
+    /* align-items: center; */
+    /* text-align: center; */
     display: inline;
+    height: 100%;
 }
 
 .navHeaderLogo a {
     display: block;
     color: #4FBBF8;
     text-decoration: none;
+    font-weight: bold;
+    font-size: 25px;
+    margin: 0;
+    /* align-items: center; */
+    /* text-align: center; */
+    height: 100%;
+}
+
+
+.navTagContainer {
+    display: flex;
 }
 
 .navTagContainer p {
@@ -55,6 +66,7 @@
     padding: 0 15px 0 0;
     height: 100%;
     align-items: center;
+    width: 250px;
 }
 
 .login {

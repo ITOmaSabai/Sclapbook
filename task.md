@@ -445,9 +445,36 @@ set関数でstatetして保存したい・・・が、追加ボタンを押し�
 CreateTagで呼び出しているDeleteTagが常に発火しているため、クリックした場所の要素を取得してしまっている。
 →**onClickに対するe.targetの知識不足＆レンダリングのタイミングを学び直す必要がある**
 
+### 8/19,20　　
+useContextを使用したグローバルな状態管理について学ぶ。
+
+### 8/21　　
+useContextを使用してリファクタリング開始  
+
+工事中の機能  
+* 投稿時のタグ削除
+* タグから検索能力
+* 投稿内容の変更機能  
+
+実装したい機能  
+* 投稿削除機能 → 済  
+* タグをHomeに表示する機能  
+* ログインした人の投稿のみ表示する機能  
+* Home画面に表示する記事を投稿日順に並べる機能  
+
+### 8/22  
+* 記事を削除する機能を追加。deleteDoc関数を使うも、以下エラー再発 自然と解消された。
+```javascript
+FirebaseError: Invalid document reference. Document references must have an even number of segments, but sclapbook has 1.
+```  
+* postにid追加  
+* 投稿時にuserNameとuserIdを保存するよう修正
+
+
   
 引数としてpropsを受け取る際に、{}が必要なのか否かで何度も苦しめられた。  
-どのブラウザAPIが何の型のデータを返すのか。HTMLCollection, Nodelist etc....
+どのブラウザAPIが何の型のデータを返すのか。HTMLCollection, Nodelist etc....  
+最初から必要となる機能を洗い出し、定義しておくことでプロダクトがゴチャつかないと感じた
 
 ## 日程の再設定 (残り7日間で実装するには)
 * Home画面に投稿済み記事表示機能　~8/1
