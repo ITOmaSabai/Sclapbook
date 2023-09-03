@@ -5,33 +5,37 @@ import { auth, db } from "../firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import "./CreatePost.css";
 import CreateTag from "../CreateTag";
-import DeleteTag from "../DeleteTag";
 import { MyContext } from "../../App";
 
 export const CreatePost = () => {
-  const [URL, setURL] = useState("");
-  const [memo, setMemo] = useState("");
+  const [URL, setURL] = useState();
+  const [memo, setMemo] = useState();
   //useContextを用いてstateを管理
   const [tag, setTag] = useContext(MyContext);
   
   //投稿ボタンを押した際の動作
   const setPost = () => {
-    createPost();
-    console.log(tag);
-    window.alert("スクラップしました！")
+    //URLまたはmemoが空の時の処理
+    if (!(URL || memo)) {
+      window.alert("URLまたはmemoを入力してください")
+    } else {
+      createPost();
+      window.alert("スクラップしました！")
     
-    //投稿後、input他の値を空にする
-    const $inputUrl = document.getElementById("inputUrl");
-    $inputUrl.value = "";
-    const $inputTag = document.getElementById("inputTag");
-    $inputTag.value = "";
-    const $inputMemo = document.getElementById("inputMemo");
-    $inputMemo.value = "";
-    //投稿後、useStateを空にする。
-    setURL("");
-    setMemo("");
-    setTag([]);
+      //投稿後、input他の値を空にする
+      const $inputUrl = document.getElementById("inputUrl");
+      $inputUrl.value = "";
+      const $inputTag = document.getElementById("inputTag");
+      $inputTag.value = "";
+      const $inputMemo = document.getElementById("inputMemo");
+      $inputMemo.value = "";
 
+      //投稿後、useStateを空にする。
+      setURL("");
+      setMemo("");
+      setTag([]);
+      // tagBtn.remove();
+    }
   };
 
   //投稿をFirebaseに保存する機能
@@ -49,12 +53,12 @@ export const CreatePost = () => {
   };
 
   //クリックしたタグをuseStateから削除する機能
-  const deleteTag = ({tag, setTag}) => {
-    const targetTag = document.getElementsByClassName("tagButton")
-    document.addEventListener("click", (e) => {
-      setTag(tag.filter((t) => t.id !== e.target.id))
-    })
-  }
+  // const deleteTag = ({tag, setTag}) => {
+  //   const targetTag = document.getElementsByClassName("tagButton")
+  //   document.addEventListener("click", (e) => {
+  //     setTag(tag.filter((t) => t.id !== e.target.id))
+  //   })
+  // }
   
   
   return (
@@ -72,12 +76,13 @@ export const CreatePost = () => {
         </div>
 
         <div className="Container tagContainer">
-          <p>タグを追加する（クリックで削除）</p>
+          <p>タグを追加する</p>
           <input id="inputTag" className="inputTag" placeholder="タグを入力"></input>
           <button
             className="addTagButton"
             placeholder="タグを入力"
             // autoCompleteをoffにする機能を実装予定
+
             onClick={() => {
               //DeleteTagコンポーネントを作成して、propsを渡す機能を実装予定
               const inputedTag = CreateTag();

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import "./Home.css";
 import homePic from "../img/5949650_3081783.jpg";
-import { db } from '../firebase';
+import { db, auth } from '../firebase';
 import { collection, deleteDoc, getDocs, doc } from "firebase/firestore";
-import Edit from "../Edit";
 
 const Home = ({isAuth, Edit}) => {
     //配列をuseStateに格納する際の引数、setPostListに格納した後に一つずつ取り出す方法(map関数？)
@@ -16,6 +15,7 @@ const Home = ({isAuth, Edit}) => {
             //{}で囲むと中身を展開できる。スプレッド構文。data関数を用いると深い階層の中身を簡単に取得できる。
             //取得したdataをdocに格納したのち、docオブジェクトのidプロパティとしてdoc.idを使用する
             setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+            // setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id, authId: doc._firestore._authCredentials.currentUser.uid })));
         }
         getPosts();
     }, []);
@@ -31,44 +31,48 @@ const Home = ({isAuth, Edit}) => {
 
     return (
     <>
+        {/* 固定のロゴ部分 */}
         <div className='topWrapper'>
             <div className="topContainer">
                 <img src={homePic} alt="home" />
                 <div className="topLogo">
                     <h1>Sclapbook</h1>
-                    <h3>スクラップブック</h3>
+                    <h3>お気に入りの記事、<br></br>手軽にスクラップ</h3>
                 </div>
             </div>
         </div>
-        {console.log(isAuth)}
 
         {/* ログアウト時には記事を表示しない */}
         {isAuth ? (
             <div className="cardWrapper">
-            {postList.map((post) => {
+            {postList.map((post, authId) => {
 
                 //タグを抜き出して一つずつ表示する機能を追加
                 const eachTag = post.tag
                 // const tag = eachTag.forEach((t) => t)
 
-                return (
-                    <div className='cardContainer' key={post.id}>
-                        <article className="card">
-                            <a className='cardHeader' href={post.URL} target='_blank'>
-                                <h2 className='cardTitle'>
-                                    memo:
-                                    <span>{post.memo}</span>
-                                </h2>
-                            </a>
-                            <button className='tagButton'></button>
-                            <div className='editDeleteContainer'>
-                                <button className='editPostButton'>編集</button>
-                                {/* <button className='editPostButton' onClick={() => {Edit()}}>編集</button> */}
-                                <button className='deletePostButton' onClick={() => deletePost(post.id)} >削除</button>
-                            </div>
-                        </article>
-                    </div>
-                )
+                // ログイン中のユーザーのidと、記事のidが一致すれば記事を表示する
+                if (auth.currentUser.uid === post.author.id) {
+                    return (
+                        <div className='cardContainer' key={post.id}>
+                            <article className="card">
+                                <a className='cardHeader' href={post.URL} target='_blank'>
+                                    <h2 className='cardTitle'>
+                                        memo:
+                                        <span>{post.memo}</span>
+                                    </h2>
+                                </a>
+                                {/* <p>{post.date}</p> */}
+                                {/* <button className='tagButton'></button> */}
+                                <div className='editDeleteContainer'>
+                                    <button className='editPostButton'>編集</button>
+                                    {/* <button className='editPostButton' onClick={() => {Edit()}}>編集</button> */}
+                                    <button className='deletePostButton' onClick={() => deletePost(post.id)} >削除</button>
+                                </div>
+                            </article>
+                        </div>
+                    )
+                }
             })}
         </div>
         ) : (

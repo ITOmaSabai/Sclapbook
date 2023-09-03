@@ -11,7 +11,6 @@ export const MyContext = createContext();
 
 function App() {
   const loginStatus = localStorage.getItem("isAuth");
-  console.log(loginStatus);
   const [isAuth, setIsAuth] = useState(loginStatus);
   const [tag, setTag] = useState([]);
 

@@ -25,14 +25,11 @@ export const Navbar = ({ isAuth, setIsAuth }) => {
                 <div className="loginLinks">
                     <button className="login" onClick={() => {Login({isAuth, setIsAuth})}}>ログイン</button>
                     <a className="signIn" onClick={() => {Login({isAuth, setIsAuth})}}>新規登録</a>
-                    {console.log("レンダリングされました")}
-                    {console.log(isAuth)}
                 </div>
             ) : (
                 <div className="loginLinks">
                     <button className="login" onClick={() => {navigate("/createpost")}}>記事を投稿</button>
                     <a className="logout navTag" onClick={() => {Logout({setIsAuth})}}>ログアウト</a>
-                    {console.log(isAuth)}
                 </div>
             )}
         </nav>
