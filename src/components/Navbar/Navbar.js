@@ -17,8 +17,8 @@ export const Navbar = ({ isAuth, setIsAuth }) => {
                 <a className="navTag" href="/">
                     <p>すべての記事</p>
                 </a>
-                <a className="navTag" href="/searchbytag">
-                    <p>タグから探す</p>
+                <a className="navTag" href="/about">
+                    <p>当サイトについて</p>
                 </a>
             </div>
             {!isAuth ? (

@@ -6,6 +6,7 @@ import { useState, useContext, createContext } from 'react';
 import Home from './components/Home/Home';
 import Edit from './components/Edit';
 import SearchByTag from './SearchByTag';
+import About from './components/About';
 // import DeleteTag from './components/DeleteTag';
 export const MyContext = createContext();
 
@@ -26,7 +27,8 @@ function App() {
             <Route path="/" element={<Home isAuth={ isAuth } Edit={Edit} />} ></Route>
             <Route path="/createpost" element={<CreatePost />}></Route>
             <Route path="/edit" element={<Edit />}></Route>
-            <Route path="/searchbytag" element={<SearchByTag />} ></Route>
+            <Route path='/about' element={<About isAuth={ isAuth } setIsAuth={ setIsAuth }/> }></Route>
+            {/* <Route path="/searchbytag" element={<SearchByTag />} ></Route> */}
           </Routes>
           </MyContext.Provider>
       </Router>

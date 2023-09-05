@@ -3,6 +3,7 @@ import "./Home.css";
 import homePic from "../img/5949650_3081783.jpg";
 import { db, auth } from '../firebase';
 import { collection, deleteDoc, getDocs, doc } from "firebase/firestore";
+import SearchByTag from '../../SearchByTag';
 
 const Home = ({isAuth, Edit}) => {
     //配列をuseStateに格納する際の引数、setPostListに格納した後に一つずつ取り出す方法(map関数？)
