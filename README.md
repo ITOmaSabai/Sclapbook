@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# 備忘録型ブックマーク作成サービス"Sclapbook"  
+**Sclapbook（スクラップブック）は、備忘録型ブックマーク作成サービス**です。  
+"clap"（拍手）を送りたくなるような記事を、メモを添えてブックマークしておくことで
+いつでも見返せる、自分だけのスクラップブックを作ることができます。
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## アプリの機能と使い方  
+* Googleアカウントでログインすることで使用できます。  
+* ブックマークしたいサイトのURL、memoを入力して、記事を投稿する(スクラップする)ボタンを押下すると、データを保存することができます。保存したデータは、ホーム画面にカード形式で一覧表示されます。  
+* ホーム画面に表示される記事は、自分が投稿した記事（保存した記事）のみです。ログインしている本人以外には、記事は表示されません。  
+* ホーム画面に表示される記事には、自身が入力したmemoが表示されます。  
+保存した記事の特徴や気になった点、保存した理由をmemoに入力しておくことで、ブックマークしたURLを開かなくとも、記事の内容を思い出すことができます。
+* 記事の右下に表示される「削除」ボタンを押下すると、保存した記事を削除することができます。  
 
-## Available Scripts
 
-In the project directory, you can run:
+## 使用スタック  
+* フロントエンド  
+React
+* バックエンド/DB  
+Firebase  
+* バージョン管理  
+Git/GitHub
 
-### `npm start`
+## 開発のきっかけ  
+今年の6月から独学でプログラミングを学習しているが、学習過程で同じ内容を調べ直すことが度々あった。  
+また、勉強になったサイト記事はブラウザにブックマークをしていたが、ブックマークしたサイトのタイトルを見ても、  
+「当時自分が何のキーワードを検索して、そのサイトをヒットさせたのか」（つまりは当時の困りごと）や、「その記事のどの記述に助けられたのか」などが思い出せず、同じ内容を調べ直し、結果同じサイトに辿り着く・・・といったことが多く、無駄を感じていた。  
+次第にブラウザのブックマークをすること自体が億劫になり、大量のタブを開きっぱなしにしておいた結果、PCの動作が重くなり学習効率が落ちてしまっていた。  
+  
+以上の経験から、直感的かつ手軽に操作でき、しかもブックマークしたサイトの内容が一目でわかる、というサイトを開発したいと考えた。  
+その際、役に立った良質な記事のみを保存しておくさまが、新聞記事の切り抜きを保管しておくスクラップブックみたいだ、と感じた。  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+そこで、「scrapbook」と「clap=拍手(したくなるようないい記事)」とをかけて、アプリ名を**Sclapbook**と命名した。  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## 今後実装したい機能  
+* タグをHomeに表示する機能  
+* タグから検索機能
+* 投稿内容の編集機能  
+* Home画面に表示する記事を投稿日順に並べる機能 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 開発を終えて所管
+### プラスとなった点  
+* 多くの企業でも活用されているFirebaseに触れることができた。
+* 一部のページのみではあるが、Figmaで遷移図(デザイン)を作成してから開発に着手したため、着手がしやすかった。  
+* Git/GitHubのコマンドを一通り使用することができた。
+* 完成したアプリを使用してみて、開発の目的通り学習が捗るようになった。  
+* 職業訓練校の同期生徒に本アプリを紹介したところ好評で、実際に活用してもらえた。
+* エラーに対する恐怖心を払拭できた（根気よく調べれば必ず解決できる）  
+* 一から独力で開発したことでレベルアップができたし、自信がついた。
 
-### `npm run build`
+　　
+### 苦労した点・改善点  
+* Firebaseのコマンドが難解で、ドキュメントを解読する難易度も高く、調査に時間を要した。
+* Firebaseに格納したデータの取り出し方が分からず調査に苦労した。
+* propsの渡し方やHooksの使い方が分からず、実装にかなりの時間を要した。  
+* 初めての自己開発であったので、どこから着手すればいいのか分からず手当たり次第にコードを書いたので可読性の低いコードとなった。
+* サイトデザインや機能を明確に定義せずに開発に着手してしまったため、開発の順序に一貫性がなくなってしまい手が止まった。後から後から改善点、不具合が出てきた。     
+→ 改善方法：必要な機能をしっかりと洗い出した上で、完成形をイメージしてから開発着手する。オブジェクト指向に基づき開発する。   
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+以上

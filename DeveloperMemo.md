@@ -1,13 +1,4 @@
-# Sclapbook開発してみた
-自分はメモ魔？なのか分からないが、開発していて、同じ内容を調べ直すことがあった。  
-ブラウザにブックマークをしたとしても、サイトのタイトルだけでは当時自分が検索してそのサイトをヒットさせた時のワード（つまりは当時の困りごと）や、その記事のどの記述に助けられたのか、などが思い出せない。  
-また、大量のタブを開きっぱなしにしておく人間である自分は、ブラウザが重くなりがちのため、「使える！」と思ったサイトはその場でサクッと保存してタブをすぐに閉じる、といった運用がしたかった。  
-そこで直感的かつ手軽に操作でき、しかもブックマークしたサイトの内容が一目でわかる、というサイトを開発したいと考えた。  
-その際、役に立った良質な記事のみを保存しておくさまが、新聞記事の切り抜きを保管しておく「スクラップブックみたいだ」と感じた。  
-そうして、"scrap"()と「clap=拍手(したくなるようないい記事)」とをかけて、アプリ名を**Sclapbook**と命名した。  
-
-余談だが、自分は読書をした際にも気に入った文をコピーアンドペーストして、本の内容を要約したりしているので、ゆくゆくは読書ログとしても発展させたいと思う。
-
+# Sclapbook開発メモ  
 ## 実装したい機能をざっくりと書き出す
 urlを貼り付ける画面→サムネ、記事プレビュー、リンクを自動作成  
 ↓  
@@ -18,17 +9,7 @@ urlを貼り付ける画面→サムネ、記事プレビュー、リンクを�
 タグ付ける機能→当時検索したワードを記録しておき、見直す際にソートできるようにする
 
 ## 完成形に対するイメージ
-何だこれ　検索　調べる　いい記事　わかりやすい　助かった　見返す　タグつけ　ブックマークしておくけどしおりじゃない　スクラップブック
-
-## 実装方法がわからない機能
-
-タグの実装
-データを保存する際のawait以降→useState
-export default と　export const の違い
-→ import ***　と　import { *** }　の違いがある
-
-
-## 開発ログ
+何だこれ　検索　調べる　いい記事　わかりやすい　助かった　見返す　タグつけ　スクラップブック
 
 ### 7/28
 CreatePost画面の表示
@@ -37,13 +18,17 @@ headerLogo(Sclapbook)のCSS当て　→　【要修正】aタグとの範囲に�
 
 ### 7/29
 useStateで正しく保存されないエラー
+```
 （Uncaught TypeError: Cannot read properties of null (reading 'value')
     at createPost ）
 CreatePost css
 navTag headerLogo css
+```
 createPostメソッドの構築　→ 以下エラーの対応中
+```
 Function addDoc() called with invalid data. Unsupported field value: undefined (found in field tag in document sclapbook/2DVayUyVhyK9eh41FboS)
 FirebaseError: Function addDoc() called with invalid data. Unsupported field value: undefined (found in field tag in document sclapbook/2DVayUyVhyK9eh41FboS)
+```
 
 **修正前コード**
 ```javascript
@@ -59,11 +44,11 @@ FirebaseError: Function addDoc() called with invalid data. Unsupported field val
 ```
 **修正後コード**
 
-**解決のヒント**
+**解決のヒント**  
 console.logで確認したところ、一回ボタンを押下した際にundefinedの値が
 出力された。
 しかし２回目のボタンを押下すると正しい値（入力した値）が出力された。
-値を書き換えた際も、2回目のボタン押下から書き換え後の値が出力された。
+値を書き換えた際も、2回目のボタン押下から書き換え後の値が出力された。  
 このことから、何らかの理由でuseStateに保持された値がボタン押下1回分遅れてる？と予想した。
 
 *次のヒント*  
@@ -84,11 +69,13 @@ Home画面の制作（保存した投稿の表示）
 Navbarを固定
 
 ### 8/1
-Homeのcss調整
-Loginコンポーネント作成
-ログイン機能の追加  
+* Homeのcss調整
+* Loginコンポーネント作成
+* ログイン機能の追加  
+```
 Firebase: No Firebase App '[DEFAULT]' has been created - call initializeApp() first (app/no-app).  
 ログインpopup起動時エラー：popup.ts:50 Cross-Origin-Opener-Policy policy would block the window.close call.
+```
 
 ### 8/2
 ログイン時エラー解決できず
@@ -185,9 +172,9 @@ const [isAuth, setIsAuth] = useState(false);
 <Router>コンポーネント内にNavbarを配置することで、Routerで囲む形となり、無事動作した。
 
 #### 次なる課題
-タグを増やしたが、最後に選択したタグのみが保存されてしまった。→配列で取得できるように修正中
-スプレッド構文を使用すると実現可能と聞き、  `const addTag = setTag([...tag]);`  と定義
-無限ループ？エラー発生
+タグを増やしたが、最後に選択したタグのみが保存されてしまった。→配列で取得できるように修正中。  
+スプレッド構文を使用すると実現可能と聞き、  `const addTag = setTag([...tag]);`  と定義したところ、
+無限ループ？発生↓   
   **Too many re-renders. React limits the number of renders to prevent an infinite loop.**  
 スプレッド構文の使用方法が誤っているようだ。
 
@@ -331,11 +318,15 @@ export default App;
 
 ### 8/10
 setURL他を使用するのをやめて、新たに状態変数を保存する関数をEdit内で定義することにする。
-また、記事の編集方法をFirebaseドキュメントで調べる。
+また、記事の編集方法をFirebaseドキュメントで調べる。  
+```
 Invalid document reference. Document references must have an even number of segments, but sclapbook has 1.
+```
 
 ### 8/11  
+```
 Invalid document reference. Document references must have an even number of segments, but sclapbook has 1.
+```
 エラー継続対応。とりあえず後回し。
 
 ### 8/12
@@ -464,51 +455,3 @@ FirebaseError: Invalid document reference. Document references must have an even
 * ログインした人の投稿のみ表示する機能 追加
 * 投稿に空欄がある場合にアラートを出したい  
 * 投稿がひとつもない場合に「投稿がありません」と表示したい
-
-
-#### 工事中の機能  
-* 投稿時のタグ削除
-* タグから検索能力
-* 投稿内容の変更機能  
-
-実装したい機能  
-* 投稿削除機能 → 済  
-* タグをHomeに表示する機能  
-* ログインした人の投稿のみ表示する機能 → 済  
-* Home画面に表示する記事を投稿日順に並べる機能 
-
-  
-引数としてpropsを受け取る際に、{}が必要なのか否かで何度も苦しめられた。  
-どのブラウザAPIが何の型のデータを返すのか。HTMLCollection, Nodelist etc....  
-最初から必要となる機能を洗い出し、定義しておくことでプロダクトがゴチャつかないと感じた
-
-## 日程の再設定 (残り7日間で実装するには)
-* Home画面に投稿済み記事表示機能　~8/1
-* ログイン機能 8/2
-* ログアウト機能 8/2
-* 投稿編集機能 8/3
-* 投稿削除機能 8/3
-* タグ生成機能 8/4
-* タグから検索機能 8/5
-* キーワードから検索機能(できれば)
-* 投稿日時ごとに記事を表示機能
-* 空文字での投稿を受け付けない機能(入力エラー検出)
-* 「〇〇(ユーザー名)の記事一覧」とHomeに表示する機能
-* ログインしているユーザーの投稿した記事のみ表示する機能
-
-## 今後学習したい機能
-* CSSアニメーション
-* JSアニメーション
-* TypeScript
-* Tailwind CSS
-* MD記法(GitHub投稿のため)
-* GitHubでのバージョン管理
-
-## 所管
-* 完成形をイメージしないと、後から後から改善点、不具合が出てくる  
-→結果、開発の順序がとっ散らかる、一貫性がなくなる。  
-また、ゴールまでの道筋を見失ってしまい開発モチベーションが低下する。  
-* 完成させてこそ、自走力を見せることができるのではないか？
-* エラーチェック、デバッグを完了させてこそ、用心深さや技術力をアピールできるのではないか？
-* 技術力は高い方が、採用確率が上がる。しかし完璧な技術力を身につけるのを待っていたら、一生就職できない。  
-→独学を始めた自走力や、3ヶ月でここまで作ったという成長率をアピールするか？
