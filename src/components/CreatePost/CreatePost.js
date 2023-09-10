@@ -12,6 +12,7 @@ export const CreatePost = () => {
   const [memo, setMemo] = useState();
   //useContextを用いてstateを管理
   const [tag, setTag] = useContext(MyContext);
+  const [inputValue, setInputValue] = useState("");
   
   //投稿ボタンを押した際の動作
   const setPost = () => {
@@ -29,6 +30,7 @@ export const CreatePost = () => {
       $inputTag.value = "";
       const $inputMemo = document.getElementById("inputMemo");
       $inputMemo.value = "";
+
 
       //投稿後、useStateを空にする。
       setURL("");
@@ -59,6 +61,27 @@ export const CreatePost = () => {
   //     setTag(tag.filter((t) => t.id !== e.target.id))
   //   })
   // }
+  const handleSubmit = (e) => e.preventDefault();
+
+  const handleInputTagChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleAddTagButtonClick = () => {
+    const newTag = inputValue;
+    setTag([...tag, newTag]) //https://qiita.com/itachi/items/4184b2afc35b55b45568
+    console.log(tag);
+
+    // return (
+    //   <ul className='tagList'>
+    //     {tag.map((_tag) => 
+    //         <li key={_tag.id}>
+    //             <input value={_tag.value} />
+    //         </li>
+    //     )}
+    //   </ul>
+    // )
+  }
   
   
   return (
@@ -77,20 +100,30 @@ export const CreatePost = () => {
 
         <div className="Container tagContainer">
           <p>タグを追加する</p>
-          <input id="inputTag" className="inputTag" placeholder="タグを入力"></input>
-          <button
-            className="addTagButton"
-            placeholder="タグを入力"
-            // autoCompleteをoffにする機能を実装予定
+          <form onSubmit={(e) => handleSubmit(e)}>
+          {/* <form onSubmit={(e) => handleAddTagButtonClick}> */}
+            <input 
+              id="inputTag" 
+              className="inputTag" 
+              placeholder="タグを入力"
+              onChange={(e) => handleInputTagChange(e)} />
+            <button
+              className="addTagButton"
+              // autoCompleteをoffにする機能を実装予定
+              onClick={handleAddTagButtonClick}
+            >
+              追加
+            </button>
+          </form>
 
-            onClick={() => {
-              //DeleteTagコンポーネントを作成して、propsを渡す機能を実装予定
-              const inputedTag = CreateTag();
-              setTag([...tag, inputedTag]) //https://qiita.com/itachi/items/4184b2afc35b55b45568
-            }}
-          >
-            追加
-          </button>
+          <ul className='tagList'>
+            {tag.map((_tag) => 
+              <li key={_tag.id}>
+                {_tag}
+              </li>
+            )}
+          </ul>
+
           {/* <DeleteTag tag={tag} setTag={setTag} /> */}
           
           <div id="listTag">

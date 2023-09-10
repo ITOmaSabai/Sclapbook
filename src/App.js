@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useState, useContext, createContext } from 'react';
 import Home from './components/Home/Home';
 import Edit from './components/Edit';
-import SearchByTag from './SearchByTag';
 import About from './components/About';
 // import DeleteTag from './components/DeleteTag';
 export const MyContext = createContext();
