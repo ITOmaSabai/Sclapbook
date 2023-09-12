@@ -1,17 +1,13 @@
 //記事のURLや情報を入力する画面を実装する
-// import { doc, setDoc } from "firebase/firestore";
 import { useState, useContext } from "react";
 import { auth, db } from "../firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import "./CreatePost.css";
-import CreateTag from "../CreateTag";
-import { MyContext } from "../../App";
 
 export const CreatePost = () => {
   const [URL, setURL] = useState();
   const [memo, setMemo] = useState();
-  //useContextを用いてstateを管理
-  const [tag, setTag] = useContext(MyContext);
+  const [tag, setTag] = useState([]);
   const [inputValue, setInputValue] = useState("");
   
   //投稿ボタンを押した際の動作
@@ -31,12 +27,10 @@ export const CreatePost = () => {
       const $inputMemo = document.getElementById("inputMemo");
       $inputMemo.value = "";
 
-
       //投稿後、useStateを空にする。
       setURL("");
       setMemo("");
       setTag([]);
-      // tagBtn.remove();
     }
   };
 
@@ -54,13 +48,6 @@ export const CreatePost = () => {
     });
   };
 
-  //クリックしたタグをuseStateから削除する機能
-  // const deleteTag = ({tag, setTag}) => {
-  //   const targetTag = document.getElementsByClassName("tagButton")
-  //   document.addEventListener("click", (e) => {
-  //     setTag(tag.filter((t) => t.id !== e.target.id))
-  //   })
-  // }
   const handleSubmit = (e) => e.preventDefault();
 
   const handleInputTagChange = (e) => {
@@ -69,18 +56,7 @@ export const CreatePost = () => {
 
   const handleAddTagButtonClick = () => {
     const newTag = inputValue;
-    setTag([...tag, newTag]) //https://qiita.com/itachi/items/4184b2afc35b55b45568
-    console.log(tag);
-
-    // return (
-    //   <ul className='tagList'>
-    //     {tag.map((_tag) => 
-    //         <li key={_tag.id}>
-    //             <input value={_tag.value} />
-    //         </li>
-    //     )}
-    //   </ul>
-    // )
+    setTag([...tag, newTag])
   }
   
   
@@ -88,10 +64,11 @@ export const CreatePost = () => {
     <div className="postWrapper">
       <div className="postContainer">
         <div className="Container">
-          <p>URL</p>
+          <p>URLを入力</p>
           <input
             id="inputUrl"
-            type="text"
+            className="inputUrl"
+            type="url"
             placeholder="URLを貼り付け"
             onChange={(e) => setURL(e.target.value)}
           >
@@ -100,13 +77,16 @@ export const CreatePost = () => {
 
         <div className="Container tagContainer">
           <p>タグを追加する</p>
-          <form onSubmit={(e) => handleSubmit(e)}>
-          {/* <form onSubmit={(e) => handleAddTagButtonClick}> */}
+          <form
+            className="tagInputForm"
+            onSubmit={(e) => handleSubmit(e)}
+          >
             <input 
               id="inputTag" 
               className="inputTag" 
               placeholder="タグを入力"
-              onChange={(e) => handleInputTagChange(e)} />
+              onChange={(e) => handleInputTagChange(e)}
+            />
             <button
               className="addTagButton"
               // autoCompleteをoffにする機能を実装予定
@@ -119,33 +99,24 @@ export const CreatePost = () => {
           <ul className='tagList'>
             {tag.map((_tag) => 
               <li key={_tag.id}>
-                {_tag}
+                #{_tag}
               </li>
             )}
           </ul>
-
-          {/* <DeleteTag tag={tag} setTag={setTag} /> */}
-          
-          <div id="listTag">
-            {/* <button className="react">React</button> */}
-          </div>
         </div>
 
-        <div className="Container">
-          <textarea
+        <div className="Container memoContainer">
+          <input
             id="inputMemo"
+            className="inputMemo"
             name=""
-            cols="50"
-            rows="8"
             placeholder="メモを追加"
             onChange={(e) => setMemo(e.target.value)}
           >
-          </textarea>
+          </input>
         </div>
         <button type="submit" onClick={setPost}>記事を追加する</button>
       </div>
     </div>
   );
 };
-
-// export {deleteTag}

@@ -455,3 +455,30 @@ FirebaseError: Invalid document reference. Document references must have an even
 * ログインした人の投稿のみ表示する機能 追加
 * 投稿に空欄がある場合にアラートを出したい  
 * 投稿がひとつもない場合に「投稿がありません」と表示したい
+
+
+### 9/10  
+* Home画面のcardに、入力されたtagを表示する機能を実装した。  
+Firebaseから取得してきたpost.tagにmap関数を使用するもis not a functionエラー。  
+typeof関数を使用してpost.tagの型を調べると配列ではなく、複数のtagがある場合はObject、  
+一つのみのtagの場合はString型であった。  
+そこでtagの状態変数保持をuseContextからuseStateに変更し、初期値を空の配列[]とした。  
+(useContextを使わなかったのは、useContextで初期値を設定する構文は分からなかったから)
+これでString型は存在しなくなると考え、objectを配列に変換するため以下の式を使用した。
+```javascript
+Object.values(post.tag).map{()=>}
+```
+結果、複数のtagが格納されているpostに対しては狙い通りそれぞれのtagをひとつずつli表示させることができた。  
+しかし、一つだけtagが格納されているpostに対しては、一つのtagにmap関数が機能してしまい、一文字ずつ表示されてしまった。  
+要修正。
+* JSX内で条件分岐(if文)を描く方法を学んだ。  
+JSX内では*式が必要*なため、文では機能しない。  
+そこで以下URLを参考に{}内に&&を書くことで機能させた。  
+```javascript
+{post.tag && Object.values(post.tag).map((_tag) => //&&の左側(左辺)がtrueなら右辺を返す。falseなら左辺を返す。
+  <li key={_tag.id}>
+      {_tag}
+  </li>
+)}
+```  
+(参考URL:https://qiita.com/horiy0125/items/fa07f5baa6028b9746ce)

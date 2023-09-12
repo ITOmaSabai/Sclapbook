@@ -5,17 +5,14 @@ import { db, auth } from '../firebase';
 import { collection, deleteDoc, getDocs, doc } from "firebase/firestore";
 
 const Home = ({isAuth, Edit}) => {
-    //配列をuseStateに格納する際の引数、setPostListに格納した後に一つずつ取り出す方法(map関数？)
     const [postList, setPostList] = useState([]);
 
-    //ページをリロードした際に１度だけ表示したいので、useEffectを使用する
+    //ページをリロードした際に１度だけ表示するためuseEffectを使用する
     useEffect(() => {
         const getPosts = async () => {
             const data = await getDocs(collection(db, "sclapbook"));
-            //{}で囲むと中身を展開できる。スプレッド構文。data関数を用いると深い階層の中身を簡単に取得できる。
-            //取得したdataをdocに格納したのち、docオブジェクトのidプロパティとしてdoc.idを使用する
+            //{}で囲んで中身を展開する（スプレッド構文）。data関数を用いて深い階層の中身を取得する。
             setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-            // setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id, authId: doc._firestore._authCredentials.currentUser.uid })));
         }
         getPosts();
     }, []);
@@ -23,7 +20,6 @@ const Home = ({isAuth, Edit}) => {
     //削除ボタンを押下した際に記事を削除する機能を追加
     const deletePost = async (id) => {
         //クリックした記事のidを指定して削除する(Firebaseの関数)
-        //idを除いた配列を作成する必要はない。
         await deleteDoc(doc(db, "sclapbook", id));
         window.alert("削除しました");
         window.location.href = "/";
@@ -46,11 +42,6 @@ const Home = ({isAuth, Edit}) => {
         {isAuth ? (
             <div className="cardWrapper">
             {postList.map((post, authId) => {
-
-                //タグを抜き出して一つずつ表示する機能を追加
-                const eachTag = post.tag
-                // const tag = eachTag.forEach((t) => t)
-
                 // ログイン中のユーザーのidと、記事のidが一致すれば記事を表示する
                 if (auth.currentUser.uid === post.author.id) {
                     return (
@@ -62,12 +53,19 @@ const Home = ({isAuth, Edit}) => {
                                         <span>{post.memo}</span>
                                     </h2>
                                 </a>
-                                {/* <p>{post.date}</p> */}
-                                {/* <button className='tagButton'></button> */}
-                                <div className='editDeleteContainer'>
-                                    <button className='editPostButton'>編集</button>
-                                    {/* <button className='editPostButton' onClick={() => {Edit()}}>編集</button> */}
-                                    <button className='deletePostButton' onClick={() => deletePost(post.id)} >削除</button>
+                                <div className='tagButtonContainer'>
+                                    <div className='tagCntainer'>
+                                        <ul className='tagList'>
+                                            {/* ポストにtagが存在していれば、tagをひとつずつ表示する */}
+                                             {post.tag && Object.values(post.tag).map((_tag) => 
+                                                <li>#{_tag}</li>
+                                            )}
+                                        </ul>
+                                    </div>
+                                    <div className='editDeleteContainer'>
+                                        <button className='editPostButton'>編集</button>
+                                        <button className='deletePostButton' onClick={() => deletePost(post.id)} >削除</button>
+                                    </div>
                                 </div>
                             </article>
                         </div>

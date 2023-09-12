@@ -34,14 +34,39 @@ button, input, textarea {
     padding: 5px 5px;
 }
 
+.inputUrl {
+    width: 400px;
+    height: 30px;
+}
+
+.tagInputForm {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    margin-bottom: 20px;
+}
+
+.inputTag {
+    width: 200px;
+    height: 30px;
+}
+
 .addTagButton {
     /* border: solid 1px #c8c8c8ee; */
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
     color: #ffffffee;
-    background-color: rgb(96, 188, 230);
+    background-color: #60bce6;
     margin: 0 10px;
+    transition: all .2s;
+}
+
+.addTagButton:hover {
+    background-color: #84c6e5;
+}
+
+.tagList {
+    overflow: scroll;
 }
 
 .tagButton {
@@ -52,4 +77,13 @@ button, input, textarea {
 }
 .tagButton:hover {
     background-color: #c1c1c1;
+}
+
+
+.memoContainer {
+    padding-top: 40px;
+}
+.inputMemo {
+    width: 400px;
+    height: 30px;
 }
